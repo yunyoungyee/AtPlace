@@ -20,7 +20,7 @@
         android:layout_marginBottom="40dp"
         android:contentDescription="TODO"
         android:src="@drawable/EnterLogo"
-        tools:srcCompat="@drawable/EnterLogo"></ImageView>
+        tools:srcCompat="@drawable/EnterLogo">  </ImageView>
 
     <TextView
         android:id="@+id/logintext"
