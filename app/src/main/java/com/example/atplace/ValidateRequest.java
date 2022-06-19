@@ -11,14 +11,14 @@ import java.util.Map;
 
 public class ValidateRequest extends StringRequest {
     //서버 url 설정(php파일 연동)
-    final static  private String URL="http://dodam123.dothome.co.kr/UserValidate.php";
+    final static  private String URL="http://97cb-116-47-96-224.ngrok.io/validate";
     private Map<String, String> map;
 
-    public ValidateRequest(String UserEmail, Response.Listener<String> listener){
+    public ValidateRequest(String username, Response.Listener<String> listener){
         super(Method.POST, URL, listener,null);
 
         map = new HashMap<>();
-        map.put("UserEmail", UserEmail);
+        map.put("username", username);
     }
 
     @Override
