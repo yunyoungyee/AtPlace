@@ -10,15 +10,14 @@
         android:id="@+id/custom_toolbar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="350dp"
         android:background="@color/purple_500"
-        app:layout_constraintBottom_toTopOf="@+id/edittext2"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="타이틀바"
-        app:titleTextColor="@color/white"
-        />
+        app:titleTextColor="@color/white" />
 
     <EditText
         android:id="@+id/edittext1"
@@ -31,8 +30,7 @@
         android:hint="   장소를 입력하세요."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/edittext2"
@@ -53,37 +51,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/addplace_buttonstyle"
         android:text="+장소 추가하기"
         android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="388dp" />
+        app:layout_constraintBottom_toTopOf="@+id/SEARCH"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/SEARCH"
-        android:layout_width="127dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="177dp"
         android:background="@drawable/search_buttonstyle"
         android:text="SEARCH"
-        android:textSize="15dp"
         android:textColor="#3F00FF"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="230dp"
-        tools:layout_editor_absoluteY="506dp" />
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/CANCEL"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/CANCEL"
-        android:layout_width="127dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="44dp"
         android:background="@drawable/cancel_buttonstyle"
         android:text="CANCEL"
         android:textSize="15dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="506dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/SEARCH"
+        app:layout_constraintEnd_toStartOf="@+id/SEARCH"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView"
