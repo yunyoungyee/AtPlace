@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button cancel_button;
+    private Button search_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,9 +19,20 @@ public class MainActivity extends AppCompatActivity {
         cancel_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( MainActivity.this, LoginActivity.class );
+                Intent intent = new Intent( MainActivity.this, MainActivity.class );
                 startActivity( intent );
             }
+
+        });
+
+        search_button = findViewById( R.id.SEARCH);
+        search_button.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( MainActivity.this, LocationActivity.class );
+                startActivity( intent );
+            }
+
         });
     }
 }
