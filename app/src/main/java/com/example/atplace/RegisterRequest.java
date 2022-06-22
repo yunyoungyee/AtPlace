@@ -11,7 +11,7 @@ import java.util.Map;
 public class RegisterRequest extends StringRequest {
 
     //서버 URL 설정(php 파일 연동)
-    final static private String URL = "http://97cb-116-47-96-224.ngrok.io/join";
+    final static private String URL = "http://85a3-1-11-90-40.ngrok.io/join";
     private Map<String, String> map;
     //private Map<String, String>parameters;
 
