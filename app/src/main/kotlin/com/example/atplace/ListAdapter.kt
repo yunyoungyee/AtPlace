@@ -35,6 +35,7 @@ class ListAdapter(val itemList: ArrayList<ListLayout>): RecyclerView.Adapter<Lis
 
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
+
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {

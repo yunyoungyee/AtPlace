@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class LoginRequest extends StringRequest {
 
-    //서버 URL 설정(php 파일 연동)
+    //서버 URL 설정
     final static private String URL = "http://97cb-116-47-96-224.ngrok.io/login";
 
     private Map<String, String> map;
@@ -21,6 +21,8 @@ public class LoginRequest extends StringRequest {
         map.put("username", username);
         map.put("password", password);
     }
+
+
 
     @Override
     protected Map<String, String>getParams() throws AuthFailureError {

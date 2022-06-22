@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String name = data.getString("name");
 
 
-                                Toast.makeText( getApplicationContext(), String.format("%s님 환영합니다.", username), Toast.LENGTH_SHORT ).show();
+                                Toast.makeText( getApplicationContext(), String.format("%s님 환영합니다.", name), Toast.LENGTH_SHORT ).show();
                                 Intent intent = new Intent( LoginActivity.this, LocationActivity.class );
 
                                 intent.putExtra( "username", username );
