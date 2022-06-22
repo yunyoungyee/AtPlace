@@ -4,25 +4,28 @@ import net.daum.mf.map.api.*;
 
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Button
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.atplace.databinding.ActivityLocationBinding
+import net.daum.mf.map.api.MapView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import java.security.MessageDigest
 
 
 class LocationActivity : AppCompatActivity() {
     companion object {
-        const val BASE_URL = "http://85a3-1-11-90-40.ngrok.io"
+        const val BASE_URL = "http://33c9-175-126-15-53.ngrok.io"
     }
 
     private lateinit var binding : ActivityLocationBinding
@@ -40,28 +43,46 @@ class LocationActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = listAdapter
 
-        listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
-            override fun onClick(v: View,data:Address, position: Int) {
+        fun getAppKeyHash() {
+            try {
+                val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+                for (i in info.signatures) {
+                    val md: MessageDigest = MessageDigest.getInstance("SHA")
+                    md.update(i.toByteArray())
+
+                    val something = String(Base64.encode(md.digest(), 0)!!)
+                    Log.e("Debug key", something)
+                }
+            } catch (e: Exception) {
+                Log.e("Not found", e.toString())
+            }
+        }
+            getAppKeyHash()
+                listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
+            override fun onClick(v: View,d:Address, position: Int) {
                 val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
                 binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
-                val button = findViewById<Button>(R.id.send_button);
-                button.setOnClickListener {
-                    val intent = Intent(this@LocationActivity, MainActivity::class.java)
-                    intent.putExtra("Address", data.address)
-                    intent.putExtra("name", data.name)
-                    intent.putExtra("road_address", data.road)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
             }
         })
 
-        // 검색 버튼
+
+                // 검색 버튼
         binding.searchButton.setOnClickListener {
             keyword = binding.searchBarInputView.text.toString()
             pageNumber = 1
             searchKeyword(keyword)
         }
+        // 클릭시 화면전환 및 값 전달
+        listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener{
+           override fun onClick(v: View, data: Address, position: Int) {
+               val intent = Intent(this@LocationActivity, MainActivity::class.java)
+               intent.putExtra("Address",data.address)
+               intent.putExtra("name",data.name)
+               intent.putExtra("road_address",data.road)
+               intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+               startActivity(intent)
+            }
+        })
 
     }
 
