@@ -20,7 +20,7 @@
         app:titleTextColor="@color/white" />
 
     <EditText
-        android:id="@+id/edittext1"
+        android:id="@+id/edittext2"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="54dp"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/edittext2"
+        android:id="@+id/edittext1"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="55dp"

@@ -3,7 +3,7 @@
     package="com.example.atplace">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
 
     <application
         android:usesCleartextTraffic="true"
@@ -44,9 +44,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-
         <!-- 네이티브 앱 키 추가 -->
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="네이티브 앱 키"/>
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="96daa678a9f3964b263f58a78baa0531"/>
 
     </application>
 

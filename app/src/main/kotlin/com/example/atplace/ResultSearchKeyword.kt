@@ -10,7 +10,11 @@ data class ResultSearchKeyword(
 data class AddressMeta(
         var documents: List<Place>
 )
-
+data class Address(
+        val name: String,      // 장소명
+        val road: String,      // 도로명 주소
+        val address: String,
+)
 data class PlaceMeta(
         var total_count: Int,               // 검색어에 검색된 문서 수
         var pageable_count: Int,            // total_count 중 노출 가능 문서 수, 최대 45 (API에서 최대 45개 정보만 제공)
