@@ -1,5 +1,9 @@
 package com.example.atplace
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,6 +38,13 @@ class LocationActivity : AppCompatActivity() {
         // 리사이클러 뷰
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = listAdapter
+
+        listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
+            override fun onClick(v: View, position: Int) {
+                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+                binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
+            }
+        })
 
         // 검색 버튼
         binding.searchButton.setOnClickListener {
@@ -71,6 +82,7 @@ class LocationActivity : AppCompatActivity() {
         if (!data?.documents.isNullOrEmpty()) {
             // 검색 결과 있음
             listItems.clear()                   // 리스트 초기화
+            binding.mapView.removeAllPOIItems()
             for (document in data!!.documents) {
                 // 결과를 리사이클러 뷰에 추가
                 val item = ListLayout(document.place_name,
@@ -80,6 +92,15 @@ class LocationActivity : AppCompatActivity() {
                         document.y.toDouble())
                 listItems.add(item)
                 // 지도에 마커 추가
+                val point = MapPOIItem()
+                point.apply {
+                    itemName = document.place_name
+                    mapPoint = MapPoint.mapPointWithGeoCoord(document.y.toDouble(),
+                            document.x.toDouble())
+                    markerType = MapPOIItem.MarkerType.BluePin
+                    selectedMarkerType = MapPOIItem.MarkerType.RedPin
+                }
+                binding.mapView.addPOIItem(point)
             }
             listAdapter.notifyDataSetChanged()
 
