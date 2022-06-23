@@ -3,21 +3,20 @@ package com.example.atplace
 import android.content.Context
 import net.daum.mf.map.api.*;
 
-
+import android.view.LayoutInflater
+import android.widget.TextView
+import com.example.atplace.databinding.ActivityMidpointBinding
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.atplace.databinding.ActivityLocationBinding
-import com.example.atplace.databinding.ActivityMidpointBinding
 import net.daum.mf.map.api.MapView
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,14 +28,13 @@ import java.security.MessageDigest
 
 class LocationActivity : AppCompatActivity() {
     companion object {
-        const val BASE_URL = "http://33c9-175-126-15-53.ngrok.io"
+        const val BASE_URL = "https://85a3-1-11-90-40.ngrok.io"
     }
 
     private lateinit var binding : ActivityLocationBinding
     private lateinit var binding1 : ActivityMidpointBinding
     private lateinit var mapView : MapView
     private val eventListener = MarkerEventListener(this)
-
     private val listItems = arrayListOf<ListLayout>()   // 리사이클러 뷰 아이템
     private val listAdapter = ListAdapter(listItems)    // 리사이클러 뷰 어댑터
     private var pageNumber = 1      // 검색 페이지 번호
@@ -47,6 +45,7 @@ class LocationActivity : AppCompatActivity() {
         binding = ActivityLocationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         mapView = binding1.wideMapView
 
         mapView.setCalloutBalloonAdapter(CustomBalloonAdapter(layoutInflater))
@@ -69,7 +68,7 @@ class LocationActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = listAdapter
 
-        listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
+                listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
             override fun onClick(v: View,d:Address, position: Int) {
                 val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
                 binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
@@ -95,6 +94,47 @@ class LocationActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    // 커스텀 말풍선 클래스
+    class CustomBalloonAdapter(inflater: LayoutInflater): CalloutBalloonAdapter {
+        val mCalloutBalloon: View = inflater.inflate(R.layout.balloon_layout, null)
+        val name: TextView = mCalloutBalloon.findViewById(R.id.ball_tv_name)
+        val address: TextView = mCalloutBalloon.findViewById(R.id.ball_tv_address)
+
+        override fun getCalloutBalloon(poiItem: MapPOIItem?): View {
+            // 마커 클릭 시 나오는 말풍선
+            name.text = poiItem?.itemName
+            address.text = "getCalloutBalloon"
+            return mCalloutBalloon
+        }
+
+        override fun getPressedCalloutBalloon(poiItem: MapPOIItem?): View {
+            // 말풍선 클릭 시
+            address.text = "getPressedCalloutBalloon"
+            return mCalloutBalloon
+        }
+    }
+
+    // 마커 클릭 이벤트 리스너
+    class MarkerEventListener(val context: Context): MapView.POIItemEventListener {
+        override fun onPOIItemSelected(mapView: MapView?, poiItem: MapPOIItem?) {
+            // 마커 클릭 시
+        }
+
+        override fun onCalloutBalloonOfPOIItemTouched(mapView: MapView?, poiItem: MapPOIItem?) {
+            // 말풍선 클릭 시 (Deprecated)
+            // 이 함수도 작동하지만 그냥 아래 있는 함수에 작성하자
+        }
+
+        override fun onCalloutBalloonOfPOIItemTouched(mapView: MapView?, poiItem: MapPOIItem?, buttonType: MapPOIItem.CalloutBalloonButtonType?) {
+            // 말풍선 클릭 시
+
+        }
+
+        override fun onDraggablePOIItemMoved(mapView: MapView?, poiItem: MapPOIItem?, mapPoint: MapPoint?) {
+            // 마커의 속성 중 isDraggable = true 일 때 마커를 이동시켰을 경우
+        }
     }
 
     // 키워드 검색 함수
@@ -150,47 +190,6 @@ class LocationActivity : AppCompatActivity() {
         } else {
             // 검색 결과 없음
             Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    // 커스텀 말풍선 클래스
-    class CustomBalloonAdapter(inflater: LayoutInflater): CalloutBalloonAdapter {
-        val mCalloutBalloon: View = inflater.inflate(R.layout.balloon_layout, null)
-        val name: TextView = mCalloutBalloon.findViewById(R.id.ball_tv_name)
-        val address: TextView = mCalloutBalloon.findViewById(R.id.ball_tv_address)
-
-        override fun getCalloutBalloon(poiItem: MapPOIItem?): View {
-            // 마커 클릭 시 나오는 말풍선
-            name.text = poiItem?.itemName
-            address.text = "getCalloutBalloon"
-            return mCalloutBalloon
-        }
-
-        override fun getPressedCalloutBalloon(poiItem: MapPOIItem?): View {
-            // 말풍선 클릭 시
-            address.text = "getPressedCalloutBalloon"
-            return mCalloutBalloon
-        }
-    }
-
-    // 마커 클릭 이벤트 리스너
-    class MarkerEventListener(val context: Context): MapView.POIItemEventListener {
-        override fun onPOIItemSelected(mapView: MapView?, poiItem: MapPOIItem?) {
-            // 마커 클릭 시
-        }
-
-        override fun onCalloutBalloonOfPOIItemTouched(mapView: MapView?, poiItem: MapPOIItem?) {
-            // 말풍선 클릭 시 (Deprecated)
-            // 이 함수도 작동하지만 그냥 아래 있는 함수에 작성하자
-        }
-
-        override fun onCalloutBalloonOfPOIItemTouched(mapView: MapView?, poiItem: MapPOIItem?, buttonType: MapPOIItem.CalloutBalloonButtonType?) {
-            // 말풍선 클릭 시
-
-        }
-
-        override fun onDraggablePOIItemMoved(mapView: MapView?, poiItem: MapPOIItem?, mapPoint: MapPoint?) {
-            // 마커의 속성 중 isDraggable = true 일 때 마커를 이동시켰을 경우
         }
     }
 
