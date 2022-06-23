@@ -19,13 +19,18 @@
         </activity>
         <activity android:name=".midActivity">
         </activity>
-        <activity android:name=".LocationActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LocationActivity">
+        </activity>
+
         <activity android:name=".RegisterActivity">
+        </activity>
+        <activity android:name=".ListActivity">
         </activity>
         <!-- 네이티브 앱 키 추가 -->
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="96daa678a9f3964b263f58a78baa0531"/>

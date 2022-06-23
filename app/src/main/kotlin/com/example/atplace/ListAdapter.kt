@@ -25,7 +25,6 @@ class ListAdapter(val itemList: ArrayList<ListLayout>): RecyclerView.Adapter<Lis
         var data: Address =  Address(itemList[position].name,itemList[position].road,itemList[position].address);
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, data,position)
-
         }
     }
 
