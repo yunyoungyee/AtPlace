@@ -29,7 +29,7 @@ import java.security.MessageDigest
 
 class LocationActivity : AppCompatActivity() {
     companion object {
-        const val BASE_URL = "http://33c9-175-126-15-53.ngrok.io"
+        const val BASE_URL = "https://85a3-1-11-90-40.ngrok.io"
     }
 
     private lateinit var binding : ActivityLocationBinding
@@ -69,30 +69,28 @@ class LocationActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = listAdapter
 
-        listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener {
-            override fun onClick(v: View,d:Address, position: Int) {
-                val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
-                binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
-            }
-        })
 
-
-                // 검색 버튼
+        // 검색 버튼
         binding.searchButton.setOnClickListener {
             keyword = binding.searchBarInputView.text.toString()
             pageNumber = 1
             searchKeyword(keyword)
         }
         // 클릭시 화면전환 및 값 전달
+
         listAdapter.setItemClickListener(object: ListAdapter.OnItemClickListener{
            override fun onClick(v: View, data: Address, position: Int) {
-               val intent = Intent(this@LocationActivity, MainActivity::class.java)
-               intent.putExtra("Address",data.address)
-               intent.putExtra("name",data.name)
-               intent.putExtra("road_address",data.road)
-               intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-               startActivity(intent)
-            }
+               val mapPoint = MapPoint.mapPointWithGeoCoord(listItems[position].y, listItems[position].x)
+               binding.mapView.setMapCenterPointAndZoomLevel(mapPoint, 1, true)
+               binding.sendButton.setOnClickListener{
+                   val intent = Intent(this@LocationActivity, MainActivity::class.java)
+                   intent.putExtra("Address",data.address)
+                   intent.putExtra("name",data.name)
+                   intent.putExtra("road_address",data.road)
+                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                   startActivity(intent)
+               }
+           }
         })
 
     }
