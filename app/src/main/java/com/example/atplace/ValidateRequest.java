@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ValidateRequest extends StringRequest {
     //서버 url 설정(php파일 연동)
-    final static  private String URL="http://97cb-116-47-96-224.ngrok.io/validate";
+    final static  private String URL="https://85a3-1-11-90-40.ngrok.io/validate";
     private Map<String, String> map;
 
     public ValidateRequest(String username, Response.Listener<String> listener){
