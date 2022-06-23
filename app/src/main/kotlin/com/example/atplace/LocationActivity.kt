@@ -29,7 +29,7 @@ import java.security.MessageDigest
 
 class LocationActivity : AppCompatActivity() {
     companion object {
-        const val BASE_URL = "https://85a3-1-11-90-40.ngrok.io"
+        const val BASE_URL = "http://4055-175-126-15-53.ngrok.io"
     }
 
     private lateinit var binding : ActivityLocationBinding

@@ -11,7 +11,7 @@ public class SearchRequest extends StringRequest{
 
 
         //서버 URL 설정(php 파일 연동)
-        final static private String URL = "https://85a3-1-11-90-40.ngrok.io/mid-point";
+        final static private String URL = "http://4055-175-126-15-53.ngrok.io/mid-point";
         private Map<String, String> map;
 
         public SearchRequest(String place1, String place2, Response.Listener<String> listener) {
