@@ -10,7 +10,7 @@ import java.util.Map;
 public class LoginRequest extends StringRequest {
 
     //서버 URL 설정
-    final static private String URL = "https://85a3-1-11-90-40.ngrok.io/login";
+    final static private String URL = "http://4055-175-126-15-53.ngrok.io/login";
 
     private Map<String, String> map;
 
